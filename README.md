@@ -19,7 +19,7 @@
 - implementing D-ary heap with varying d
 - implementing the third heap
 - comparison between binary heap with extendable array and binary heap with binary tree
-- 
+- comparison between binary heap with extendable array and binary heap with binary tree
 
 
 ## Assign sub tasks to team members
