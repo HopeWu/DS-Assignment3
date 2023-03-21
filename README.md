@@ -23,4 +23,38 @@
 
 
 ## Assign sub tasks to team members
+
+- Max heap with binary tree imp, Haopeng
+- Max heap with array imp, Prateek
+- D-ary Heap imp, Yan
+- A third Heap imp, Hong
+
+- experiment Max heap with binary tree imp, the corresponding docs, Haopeng
+- experiment Max heap with array imp, the corresponding docs Prateek
+- experiment D-ary Heap imp, the corresponding docs Yan
+- experiment A third Heap, the corresponding docs Hong
+
+- comparison max heap with tree VS max heap with array, the corresponding docs Prateek
+- comparison D-ary heap imp with varying d, the corresponding docs Yan
+- standard queue with array from assign1 VS max heap with array, the corresponding docs Haopeng
+- priority queue with array from assign1 VS max heap with array, the corresponding docs tuning with another sorting algorithm, Prateek
+
+- video, Haopeng
+- final report, Hong lead the team to put the separate parts together
+- polish the final report, Prateek
+
+
+
+
+
 ## Decide the deadline for sub tasks
+
+### deadline for all the codes, Friday 24th, 3 days for this
+### deadline for the comparisons, experiments, documentations, and ready-to-use sections for the final report, **Tuesday 28th**, 4 days
+### deadline for the final report, Wednesday, 29th, need 1 day
+### deadline for the review of the report, Friday, 31th, 2 days for this task
+
+
+
+
+
