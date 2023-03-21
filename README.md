@@ -44,9 +44,6 @@
 - polish the final report, Prateek
 
 
-
-
-
 ## Decide the deadline for sub tasks
 
 ### deadline for all the codes, Friday 24th, 3 days for this
