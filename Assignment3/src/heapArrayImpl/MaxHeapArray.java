@@ -227,8 +227,10 @@ public class MaxHeapArray extends Queue {
 		
 		for(i = 0; i <= 1; i++) {
 			if ((childIndex + i) <= size) {
-				if(tasks[max_index].getImportance() < 
-				   tasks[childIndex + i].getImportance()) {
+				if((tasks[max_index]!=null && 
+					tasks[childIndex + i]!=null) && 
+				    (tasks[max_index].getImportance() < 
+				    tasks[childIndex + i].getImportance())) {
 				   max_index = childIndex + i;
 				}
 			}
