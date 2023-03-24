@@ -28,7 +28,7 @@ public class EfficiencyTest {
 	private int datasize;
 	private int batchSize;
 
-	EfficiencyTest() {
+	public EfficiencyTest() {
 		this.dataset = new Dataset();
 	}
 
@@ -52,7 +52,7 @@ public class EfficiencyTest {
 	}
 
 	/**
-	 * Set the population size for the same data set to be performed on by the two queues.
+	 * Set the size for the same data set to be performed on by the two queues.
 	 * @param datasize
 	 */
 
