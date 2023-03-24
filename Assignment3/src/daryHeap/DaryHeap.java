@@ -1,4 +1,5 @@
 package daryHeap;
+import queue.Queue;
 import task.Task;
 
 
@@ -12,7 +13,7 @@ import task.Task;
  * @author Yan
  *
  */
-public class DaryHeap {
+public class DaryHeap extends Queue {
 	/**
 	 * The array which represents the heap
 	 */
@@ -56,7 +57,7 @@ public class DaryHeap {
 	/**
 	 * Clears the heap.
 	 */
-    public void clear(){
+    public void empty(){
     	size = 0;
     }
     
@@ -164,4 +165,38 @@ public class DaryHeap {
         
         return maxChild;
     }
+
+	/**
+	 * Adds an element to the queue(heap).
+	 * @param task The element that is to be added
+	 */
+	@Override
+	public void enqueue(Task task) {
+		insert(task);		
+	}
+
+	/**
+	 * Removes the element with the highest priority from the queue(heap).
+	 */
+	@Override
+	public Task dequeue() {
+		Task task = delete(0);
+		return task;
+	}
+
+	/**
+	 * Gets the element with the highest priority.
+	 */
+	@Override
+	public Task peek() {
+		return heapArray[0];
+	}
+
+	/**
+	 * Gets the number of elements in the heap.
+	 */
+	@Override
+	public int size() {
+		return size;
+	}
 }
