@@ -1,6 +1,10 @@
 package pairingHeap;
 
 import task.Task;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import queue.Queue;
 
 /**
@@ -115,16 +119,34 @@ public class PairingHeap extends Queue {
      * @return the resulting PairingHeapNode after merging all pairs of siblings
      */
 	private PairingHeapNode mergePairs(PairingHeapNode first) {
-        if (first == null || first.getNext() == null) {
-            return first;
-        }
+		if (first == null || first.getNext() == null) {
+	        return first;
+	    }
 
-        PairingHeapNode second = first.getNext();
-        PairingHeapNode remaining = second.getNext();
-        first.setNext(null);
-        second.setNext(null);
+	    List<PairingHeapNode> pairList = new ArrayList<>();
 
-        return merge(merge(first, second), mergePairs(remaining));
+	    while (first != null && first.getNext() != null) {
+	        PairingHeapNode second = first.getNext();
+	        PairingHeapNode remaining = second.getNext();
+
+	        first.setNext(null);
+	        second.setNext(null);
+
+	        pairList.add(merge(first, second));
+
+	        first = remaining;
+	    }
+
+	    if (first != null) {
+	        pairList.add(first);
+	    }
+
+	    PairingHeapNode result = null;
+	    for (int i = pairList.size() - 1; i > 0; i--) {
+	        result = merge(pairList.get(i), result);
+	    }
+
+	    return merge(pairList.get(0), result);
     }
 
 	
