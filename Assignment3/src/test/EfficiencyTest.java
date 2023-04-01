@@ -167,4 +167,22 @@ public class EfficiencyTest {
 		return sum;
 	}
 
+	/**
+	 * Test to measure time taken by a
+	 * enqueue opertion.
+	 */
+  void speedTest() {
+		Cpu stdCpu = new Cpu(this.queue1);
+		// Generate the tasks
+		Task[] tasks = dataset.getData(datasize);
+		// To save working time in milliseconds
+		long start = 0;
+		long end = 0;
+		
+		// Let them run and save the elapsed time.
+		start = System.currentTimeMillis();
+		stdCpu.assign(tasks);
+		end = System.currentTimeMillis();
+		System.out.printf("Insertion Time for a Queue: %d\n", end - start);
+  }
 }
