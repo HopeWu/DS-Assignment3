@@ -19,14 +19,17 @@ public class TestPairingHeap {
 			}
 			
 
-	        System.out.println("Max importance task: " + heap.findMax().getImportance()); // Should output "Task 5"
+	        System.out.println("Max importance task: " + heap.findMax().getImportance()); // Should output "Task 10"
+	        System.out.println("Size: " + heap.size()); 
 
 	        Task deletedTask = heap.deleteMax();
-	        System.out.println("Deleted max importance task: " + deletedTask.getImportance()); // Should output "Task 5"
+	        System.out.println("Deleted max importance task: " + deletedTask.getImportance()); // Should output "Task 10"
+	        System.out.println("Size: " + heap.size()); 
 
-	        System.out.println("New max importance task: " + heap.findMax().getImportance()); // Should output "Task 3"
+	        System.out.println("New max importance task: " + heap.findMax().getImportance()); // Should output "Task 10"
 
 	        deletedTask = heap.deleteMax();
-	        System.out.println("Deleted max importance task: " + deletedTask.getImportance()); // Should output "Task 3"
+	        System.out.println("Deleted max importance task: " + deletedTask.getImportance()); // Should output "Task 10"
+	        System.out.println("Size: " + heap.size()); 
 	 }
 }

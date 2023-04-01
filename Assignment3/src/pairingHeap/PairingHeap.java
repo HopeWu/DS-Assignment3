@@ -1,14 +1,16 @@
 package pairingHeap;
 
 import task.Task;
+import queue.Queue;
 
 /**
  * Represents a pairing heap data structure for storing and managing tasks 
  * based on their importance.
  */
-public class PairingHeap {
-	 PairingHeapNode root;
-
+public class PairingHeap extends Queue {
+	 private PairingHeapNode root;
+	 private int size; 
+	 
 	 /**
 	 * Constructs an empty PairingHeap.
 	 */
@@ -17,18 +19,13 @@ public class PairingHeap {
 	 }
 
 	 /**
-	 * Checks if the heap is empty.
-	 * @return true if the heap is empty, false otherwise
-	 */
-	 public boolean isEmpty() {
-	    return root == null;
-	 }
-
-	 /**
 	 * Inserts a task into the heap.
 	 * @param task the TaskNode to be inserted into the heap
 	 */
 	 public void insert(Task task) {
+		 if (task== null) {
+	            throw new RuntimeException("The task is empty.");
+	     }
 		 PairingHeapNode newNode = new PairingHeapNode(task);
 	     if (root == null) {
 	    	 root = newNode;
@@ -36,6 +33,7 @@ public class PairingHeap {
 	     else {
 	         root = merge(root, newNode);
 	     }
+	     size++;
 	 }
 	 
 	 /**
@@ -59,7 +57,7 @@ public class PairingHeap {
 		 if (isEmpty()) {
 			 throw new IllegalStateException("Heap is empty.");
 	     }
-	     Task minTask = root.getTask();
+	     Task maxTask = root.getTask();
 	     if (root.getChild() == null) {
 	         root = null;
 	     } 
@@ -67,7 +65,8 @@ public class PairingHeap {
 	    	 root = mergePairs(root.getChild());
 	         root.setPrev(null);
 	     }
-	     return minTask;
+	     size--;
+	     return maxTask;
 	 }
 	 
 	/**
@@ -127,4 +126,67 @@ public class PairingHeap {
 
         return merge(merge(first, second), mergePairs(remaining));
     }
+
+	
+	/**
+	 * Add an element to the queue(heap).
+	 * @param task The element that is to be added
+	 */
+	@Override
+	public void enqueue(Task task) {
+		// TODO Auto-generated method stub
+		insert(task);
+	}
+
+	
+	/**
+	 * Removes the element with the highest priority.
+	 */
+	@Override
+	public Task dequeue() {
+		// TODO Auto-generated method stub
+		return deleteMax();
+	}
+
+	/**
+	 * Get the element with the highest priority.
+	 */
+	@Override
+	public Task peek() {
+		// TODO Auto-generated method stub
+		return findMax();
+	}
+
+	
+	 /**
+	 * Checks if the heap is empty.
+	 * @return true if the heap is empty, false otherwise
+	 */
+	 @Override
+	 public boolean isEmpty() {
+	    return root == null;
+	 }
+
+
+	@Override
+	public boolean isFull() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return size;
+	}
+
+	/**
+     * Clear the heap.
+     */	
+	@Override
+	public void empty() {
+		// TODO Auto-generated method stub
+		size=0;
+		root = null;
+	}
 }
