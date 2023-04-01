@@ -3,6 +3,7 @@ package test;
 import java.util.ArrayList; 
 import java.util.Hashtable;
 
+import daryHeap.DaryHeap;
 import halfPrioQueue.HalfPrioQueueByArr;
 import halfPrioQueue.HalfPrioQueueByLinkedList;
 import priorityQueue.PriorityQueueByArr;
@@ -21,8 +22,9 @@ import task.Task;
 public class TestDrive {
 	static public void main(String[] string) {
 //		experimentOne();
-		testPerformance();
+		testDaryHeap();
 	}
+	
 	/**
 	Experiment functions. Its contents will be changed across different experiments. e.g. threshold, probability, datasize.
 	*/
@@ -42,15 +44,7 @@ public class TestDrive {
 		efficiencyTest.setDatasetProbability(100, 0.1);
 		efficiencyTest.setDatasetProbability(1, 0.9);
 		efficiencyTest.run();
-	}
-	
-	/**
-	Experiments wrappers.
-	*/
-	static void testPerformance() {
-		PerformanceTest performanceTest = new PerformanceTest();
-		performanceTest.run();
-	}
+	}	
 	
 	/**
 	Experiments wrappers.
@@ -127,5 +121,45 @@ public class TestDrive {
 		efficiencyTest2.run();
 	}
 
+	/**
+	 * Tests the performance of D-ary heap.
+	 * Runs each experiment 5 times and work out an average time for each data size. 
+	 */
+	private static void testDaryHeap() {
+		
+		// Create test data
+		Dataset dataset = new Dataset();
 
+		// Create a data set with the same probabilities of tasks with importance ranging from 1 to 10		
+		for (int i = 1; i <= 10; i++) {
+			dataset.setProbability(i, 0.1);
+		}
+		System.out.println("****************D-ary Heap****************");
+		final int ITERATIONS = 5;
+		int[] dArr = {2, 3, 4, 6, 8, 10, 16, 32, 64, 128};
+		System.out.println("Data Size,D,Execution Time(ms)");
+		for (int N = 50000; N <= 500000; N += 50000) {
+			for (int D : dArr) {
+				// Create the queue to be used in CPUs first.
+				Queue daryHeap = new DaryHeap(N, D);
+				
+				// Integrate the queue with the correspondent CPU
+				Cpu daryHeapCpu = new Cpu(daryHeap);
+				
+				// Generate the tasks
+				Task[] tasks = dataset.getData(N);
+				
+				long elapsedTimeSum = 0;
+				for (int it = 0; it < ITERATIONS; it++) {
+					long start = System.currentTimeMillis();
+					daryHeapCpu.perform2(tasks);
+					long end = System.currentTimeMillis();
+					elapsedTimeSum += end - start;
+				}		
+				long elapsedTime = elapsedTimeSum / ITERATIONS;	
+				System.out.println(N + "," + D + "," + elapsedTime);
+			}
+			System.out.println("-----------------------------------");			
+		}
+	}
 }
