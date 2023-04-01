@@ -2,6 +2,7 @@ package maxHeapBinaryTree;
 
 import java.util.ArrayList;
 
+import halfPrioQueue.HalfPrioQueueByLinkedList;
 import queue.Queue;
 import standardQueue.StandardQueueByLinkedListOptim;
 import task.Task;
@@ -17,6 +18,35 @@ public class MaxHeapBinaryTree extends Queue {
 	 * the very right and lowest node
 	 */
 	private HeapNode last;
+	
+	/**
+	 * get the tree height
+	 */
+	int height = 0;
+	boolean isHeightModified = false;
+	
+	/**
+	 * get height with cache
+	 */
+	public int getHeight() {
+		// cache the height
+		if (isHeightModified)
+			this.height = this._getHeight(this.root);
+		return this.height;
+	}
+
+	/**
+	 * real recursive getHeight function
+	 * @param root, the height of this root
+	 * @return, the height of this root
+	 */
+	public int _getHeight(HeapNode root) {
+		// null node does add to the height
+		if (root == null)
+			return 0;
+		// the height of this node is the higher child's height plus 1
+		return Math.max(_getHeight(root.leftChild), _getHeight(root.rightChild)) + 1;
+	}
 
 	/**
 	 * to save all the nodes as a list. A linked list would suffice, preferably a
@@ -50,6 +80,7 @@ public class MaxHeapBinaryTree extends Queue {
 	 */
 	@Override
 	public void enqueue(Task task) {
+		isHeightModified = true;
 		HeapNode newNode = new HeapNode(task);
 
 		nodeLink.add(newNode);
@@ -123,8 +154,26 @@ public class MaxHeapBinaryTree extends Queue {
 		}
 	}
 
+	/**
+	 * this variable turns false once dequeue happens
+	 */
+	private boolean isFirstDequeue = true;
+	/**
+	 * whether to print height. Be careful with this since this will affect the performance
+	 * The program only use this once when validating the height.
+	 */
+	private boolean printHeight = false;
 	@Override
 	public Task dequeue() {
+		if(isFirstDequeue && printHeight) {
+			/**
+			 * only print the height 
+			 */
+			System.out.print("Tree height is: ");
+			System.out.println(getHeight());
+			isFirstDequeue = false;
+		}
+		isHeightModified = true;
 		// save the to-be-returned task
 		Task maxTask = root.data;
 		// pop the last from the nodeList
@@ -155,6 +204,8 @@ public class MaxHeapBinaryTree extends Queue {
 			currentNode = biggerChild;
 			biggerChild = getBiggerChild(currentNode);
 		}
+		// update the last
+		this.last = nodeLink.get(nodeLink.size()-1);
 		return maxTask;
 	}
 
@@ -192,6 +243,7 @@ public class MaxHeapBinaryTree extends Queue {
 	 */
 	@Override
 	public void empty() {
+		isHeightModified = true;
 		this.root = null;
 	}
 
@@ -224,11 +276,12 @@ public class MaxHeapBinaryTree extends Queue {
 		EfficiencyTest efficiencyTest = new EfficiencyTest();
 
 		Queue queue1 = new StandardQueueByLinkedListOptim();
+//		HalfPrioQueueByLinkedList queue1 = new HalfPrioQueueByLinkedList();
 		Queue queue2 = new MaxHeapBinaryTree();
 
 		efficiencyTest.setQueue1(queue1);
 		efficiencyTest.setQueue2(queue2);
-		final int S = 1;
+		final int S = 25600;
 		efficiencyTest.setDatasize(S * 1000);
 		efficiencyTest.setBatchSize(S * 100);
 		efficiencyTest.setDatasetProbability(100, 0.1);
