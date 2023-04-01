@@ -90,6 +90,10 @@ public class EfficiencyTest {
 		_run();
 	}
 
+	public void run2() {
+		_run2();
+	}
+	
 	private int[] _run() {
 		/*
 		 * construct the two cpus.
@@ -159,6 +163,76 @@ public class EfficiencyTest {
 		return new int[] { efficiency1, efficiency2 };
 	}
 
+	private int[] _run2() {
+		/*
+		 * construct the two cpus.
+		 */
+
+		// Compose the queues with correspondent cpu
+		Cpu stdCpu = new Cpu(this.queue1);
+		Cpu priCpu = new Cpu(this.queue2);
+
+		// Generate the tasks to assgin to both cpus
+		Task[] tasks = dataset.getData(datasize);
+
+		
+
+		/**
+		 * Take the first @TIMES tasks as samples to calculate the the average workload
+		 * done within 1 millisecond
+		 */
+		long start = 0;
+		long end = 0;
+		// To save working time in milliseconds
+		ArrayList<Long> elapsedTime = new ArrayList<Long>();
+
+		Task[] stdTasks, priTasks;
+		int stdWork, priWork;
+
+		// Let them run and save the elapsed time.
+		start = System.currentTimeMillis();
+		stdCpu.assign(tasks);
+		stdTasks = stdCpu.performTimesOf(batchSize);
+		end = System.currentTimeMillis();
+		stdWork = workloadOf(stdTasks);
+		elapsedTime.add(end - start);
+		System.out.printf("Workload of %s Cpu: %d\n", queue1, stdWork);
+		System.out.printf("Time for %s: %d\n", queue1, elapsedTime.get(0));
+		System.out.println();
+
+
+		start = System.currentTimeMillis();
+		priCpu.assign(tasks);
+		priTasks = priCpu.performTimesOf(batchSize);
+		end = System.currentTimeMillis();
+		priWork = workloadOf(priTasks);
+		elapsedTime.add(end - start);
+		System.out.printf("Workload of %s Cpu: %d\n", queue2, priWork);
+		System.out.printf("Time for %s: %d\n", queue2, elapsedTime.get(1));
+
+		// Calculate the efficiencies
+		int efficiency1 = (int) (stdWork / elapsedTime.get(0));
+		int efficiency2 = (int) (priWork / elapsedTime.get(1));
+		
+		System.out.println();
+
+		System.out.print("Task population: ");
+		System.out.println(Dataset.checkDistruibutionOf(tasks));
+		System.out.println();
+
+		System.out.printf("%s tasks's distribution: ", queue1);
+		System.out.println(Dataset.checkDistruibutionOf(stdTasks));
+		System.out.printf("%s tasks's distribution: ", queue2);
+		System.out.println(Dataset.checkDistruibutionOf(priTasks));
+
+		System.out.println();
+		System.out.printf("Efficiency for %s is: %d\n", queue1, efficiency1);
+		System.out.printf("Efficiency for %s is: %d\n", queue2, efficiency2);
+
+		return new int[] { efficiency1, efficiency2 };
+	}
+
+	
 	int workloadOf(Task[] tasks) {
 		int sum = 0;
 		for (int i = 0; i < tasks.length; ++i) {

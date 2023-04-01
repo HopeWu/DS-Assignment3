@@ -1,7 +1,11 @@
 package pairingHeap;
 
+import daryHeap.DaryHeap;
+import priorityQueue.PriorityQueueByArr;
+import priorityQueue.PriorityQueueByLinkedListOptim;
 import queue.Queue;
 import task.Task;
+import test.Cpu;
 import test.Dataset;
 
 
@@ -9,9 +13,6 @@ public class TestPairingHeap {
 	 public static void main(String[] args) {
 		// configure the distribution for the data
 			Dataset dataset = new Dataset();
-			dataset.setProbability(1, 0.1);
-			dataset.setProbability(10, 0.7);
-			dataset.setProbability(5, 0.2);
 			Task[] tasks = dataset.getData(100);
 			PairingHeap heap = new PairingHeap();
 			for (Task task: tasks) {
@@ -32,4 +33,5 @@ public class TestPairingHeap {
 	        System.out.println("Deleted max importance task: " + deletedTask.getImportance()); // Should output "Task 10"
 	        System.out.println("Size: " + heap.size()); 
 	 }
+	
 }

@@ -40,7 +40,7 @@ public class EfficiencyTestPairingHeap {
 			efficiencyTest2.setDatasetProbability(1, 1-rate);
 		}
 		
-		efficiencyTest2.run();
+		efficiencyTest2.run2();
 	}
 
 	
