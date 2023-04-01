@@ -1,12 +1,9 @@
 package test;
 
-<<<<<<< HEAD
 import java.util.ArrayList; 
 import java.util.Hashtable;
 
 import daryHeap.DaryHeap;
-=======
->>>>>>> 04744b9 (Added MaxHeapDynArray and experiments related to MaxHeapArray and its tuning.)
 import halfPrioQueue.HalfPrioQueueByArr;
 import halfPrioQueue.HalfPrioQueueByLinkedList;
 import priorityQueue.PriorityQueueByArr;
@@ -15,6 +12,7 @@ import priorityQueue.PriorityQueueBySinglyLinkedList;
 import priorityQueue.PriorityQueueByLinkedListOptim;
 import queue.Queue;
 import standardQueue.StandardQueueByLinkedListOptim;
+import task.Task;
 import heapArrayImpl.MaxHeapArray;
 import heapArrayImpl.MaxHeapDynArray;
 import maxHeapBinaryTree.MaxHeapBinaryTree;
@@ -138,7 +136,6 @@ public class TestDrive {
 		}
 		efficiencyTest2.run();
 	}
-<<<<<<< HEAD
 
 	/**
 	 * Tests the performance of D-ary heap.
@@ -181,8 +178,6 @@ public class TestDrive {
 			System.out.println("-----------------------------------");			
 		}
 	}
-}
-=======
 	
 	/**
 	 * Experiment that measures the enqueue operation
@@ -260,4 +255,3 @@ public class TestDrive {
 		efficiencyTest.run();
 	}
 }
->>>>>>> 04744b9 (Added MaxHeapDynArray and experiments related to MaxHeapArray and its tuning.)
